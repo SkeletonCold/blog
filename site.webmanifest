@@ -1,0 +1,20 @@
+{
+    "name": "SkeletonCold Blog",
+    "short_name": "SkeletonCold Blog",
+    "icons": [
+        {
+            "src": "https://skeletoncold.github.io/blog/android-chrome-192x192.png?v=2",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "https://skeletoncold.github.io/blog/android-chrome-512x512.png?v=2",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ],
+    "theme_color": "#e3dacb",
+    "background_color": "#e3dacb",
+    "start_url": "https://skeletoncold.github.io/blog",
+    "display": "standalone"
+}
