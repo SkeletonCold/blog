@@ -35,20 +35,28 @@
     <!-- meta -->
 
 
-<title>标签：Minecraft | 小白的部落格</title>
+<title>【随记】Minecraft数据包loot_table运用 | 小白的部落格</title>
 
+
+    <meta name="keywords" content="Minecraft, Minecraft数据包">
 
 
 
 
     <!-- OpenGraph -->
  
-    <meta property="og:type" content="website">
-<meta property="og:title" content="小白的部落格">
-<meta property="og:url" content="http://skeletoncold.github.io/blog/tags/Minecraft/index.html">
+    <meta name="description" content="前言项目地址戳我Minecraft wiki战利品表Minecraft wiki战利品表谓词 正文">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【随记】Minecraft数据包loot_table运用">
+<meta property="og:url" content="http://skeletoncold.github.io/blog/2022/02/07/minecraft-datapack-loot-table/index.html">
 <meta property="og:site_name" content="小白的部落格">
+<meta property="og:description" content="前言项目地址戳我Minecraft wiki战利品表Minecraft wiki战利品表谓词 正文">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-02-07T11:42:27.000Z">
+<meta property="article:modified_time" content="2022-02-07T12:31:22.546Z">
 <meta property="article:author" content="SkeletonCold">
+<meta property="article:tag" content="Minecraft">
+<meta property="article:tag" content="Minecraft数据包">
 <meta name="twitter:card" content="summary_large_image">
 
 
@@ -57,6 +65,13 @@
  
 
     
+    
+        <link rel="stylesheet" id="hl-default-theme" href="/blog/css/highlight/atelier-forest-light.css" media="none" >
+        
+            <link rel="stylesheet" id="hl-dark-theme" href="/blog/css/highlight/atelier-forest-dark.css" media="none">
+        
+    
+
     
     
 
@@ -143,79 +158,149 @@
 </header>
 
 
-    <div class="cover">
-        <div class="cover__logo">
-            
-                <h1>SkeletonCold Blog</h1>
+            <main class="main">
+    
+
+<div class="post-title">
+    <h1 class="post-title__text">
+        【随记】Minecraft数据包loot_table运用
+    </h1>
+    <div class="post-title__meta">
+        <a href="/blog/archives/2022/02/" class="post-meta__date button">2022-02-07</a>
+        
+ 
+        
+    
+     
+    <span id="busuanzi_container_page_pv" hidden>
+        <span class="separate-dot"></span>
+        <span></span>
+        <span id="busuanzi_value_page_pv"></span>
+        <span>Views</span>
+    </span>
+
+
+
+ 
+
+ 
+    </div>
+</div>
+
+
+    <aside class="post-side">
+        <div class="post-side__toc">
+            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a></li></ol>
+        </div>
+    </aside>
+    <a class="btn-toc button" id="btn-toc" tabindex="0">
+        <svg viewBox="0 0 1024 1024" width="32" height="32" xmlns="http://www.w3.org/2000/svg">
+            <path d="M128 256h64V192H128zM320 256h576V192H320zM128 544h64v-64H128zM320 544h576v-64H320zM128 832h64v-64H128zM320 832h576v-64H320z" fill="currentColor"></path>
+        </svg>
+    </a>
+    <div class="toc-menus" id="toc-menus">
+        <div class="toc-title">文章目录</div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AD%A3%E6%96%87"><span class="toc-text">正文</span></a></li></ol>
+    </div>
+
+
+<article class="post post__with-toc content-card">
+    <div class="post__header">
+    <div class="post__expire" id="post-expired-notify">
+        <p>
+            本文最后更新于 &lt;span id=&#34;expire-date&#34;&gt;&lt;/span&gt; 天前，文中部分描述可能已经过时。
+        </p>
+    </div>
+    <script>
+        (() => {
+            var update = Date.parse("2022-02-07"),
+                date = new Date(),
+                now = date.getTime(),
+                expire = now - update,
+                expire_days = Math.floor(expire/(24*3600*1000));
+            if (expire_days >= 120) {
+                document.querySelectorAll('#expire-date')[0].innerHTML = expire_days;
+                document.querySelectorAll('#post-expired-notify')[0].style.display = 'block';
+            }
+        })();
+    </script>
+</div>
+    <div class="post__content">
+        <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>项目地址<a target="_blank" rel="noopener" href="https://github.com/SkeletonCold/MinecraftDatapack">戳我</a><br><a target="_blank" rel="noopener" href="https://minecraft.fandom.com/zh/wiki/%E6%88%98%E5%88%A9%E5%93%81%E8%A1%A8">Minecraft wiki战利品表</a><br><a target="_blank" rel="noopener" href="https://minecraft.fandom.com/zh/wiki/%E6%88%98%E5%88%A9%E5%93%81%E8%A1%A8%E8%B0%93%E8%AF%8D">Minecraft wiki战利品表谓词</a></p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2>
+    </div>
+    
+    <div class="post__license">
+        <p>
+            <strong>本文作者：</strong>SkeletonCold
+        </p>
+        <p>
+            <strong>
+                本文链接：
+            </strong>
+            <a href="http://skeletoncold.github.io/blog/2022/02/07/minecraft-datapack-loot-table/">http://skeletoncold.github.io/blog/2022/02/07/minecraft-datapack-loot-table/</a>
+        </p>
+        
+            <strong>
+                <p>文章默认使用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">CC BY-NC-SA 4.0</a> 协议进行许可，使用时请注意遵守协议。</p>
+
+            </strong>
+        
+    </div>
+ 
+    <div class="post-footer__meta"><p>更新于 2022-02-07</p></div> 
+    <div class="post-entry__tags"><a href="/blog/tags/Minecraft/" class="post-tags__link button"># Minecraft</a><a href="/blog/tags/Minecraft%E6%95%B0%E6%8D%AE%E5%8C%85/" class="post-tags__link button"># Minecraft数据包</a></div> 
+</article>
+
+
+    <div class="nav">
+        <div class="nav__prev">
             
         </div>
-        
-        
-            <div class="cover__intro">
-                <p>Hi, nice to meet you!</p>
- 
-            </div>
-        
+        <div class="nav__next">
+            
+                <a href="/blog/2022/02/02/new-device/" class="nav__link">
+                    <div>
+                        <div class="nav__label">
+                            Next Post
+                        </div>
+                        <div class="nav__title">
+                            新设备
+                        </div>
+                    </div>
+                    <div>
+                        <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="24" height="24"><path d="M434.944 790.624l-45.248-45.248L623.04 512l-233.376-233.376 45.248-45.248L713.568 512z" fill="#808080"></path></svg>
+                    </div>
+                </a>
+            
+        </div>
     </div>
 
-            
+
+
+    <div class="post__comments post__with-toc content-card" id="comment">
+        
+    <h4>评论</h4>
+    
+    
+    
+    
+    
+    <div id="gitalk-container"></div>
 
     
-        <main class="main">
-            
-    <div class="post-list">
-        
-            
-                <div class='post-entry content-card'>
-                    <div class="post-entry__header"></div>
-<div class="post-entry__content">
-    <h2 class="post-entry__title">
-        【随记】Minecraft数据包loot_table运用
-    </h2>
     
-        <p>
-            前言项目地址戳我
-        </p>
     
-</div>
-<div class="post-entry__meta">
-    <a href="/blog/archives/2022/02/" class="post-meta__date button">2022-02-07</a>
     
- 
-</div>
-<div class="post-entry__tags"><a href="/blog/tags/Minecraft/" class="post-tags__link button"># Minecraft</a><a href="/blog/tags/Minecraft%E6%95%B0%E6%8D%AE%E5%8C%85/" class="post-tags__link button"># Minecraft数据包</a></div> 
-<a href="/blog/2022/02/07/minecraft-datapack-loot-table/" class="post-entry__link">【随记】Minecraft数据包loot_table运用</a>
-                </div>
-            
-                <div class='post-entry content-card'>
-                    <div class="post-entry__header"></div>
-<div class="post-entry__content">
-    <h2 class="post-entry__title">
-        如何安装Minecraft整合包
-    </h2>
     
-        <p>
-            下载整合包
-        </p>
     
-</div>
-<div class="post-entry__meta">
-    <a href="/blog/archives/2021/12/" class="post-meta__date button">2021-12-23</a>
-    
- 
-</div>
-<div class="post-entry__tags"><a href="/blog/tags/Minecraft/" class="post-tags__link button"># Minecraft</a><a href="/blog/tags/%E6%95%99%E7%A8%8B/" class="post-tags__link button"># 教程</a><a href="/blog/tags/%E6%B8%B8%E6%88%8F/" class="post-tags__link button"># 游戏</a></div> 
-<a href="/blog/2021/12/23/how-to-install-minecraft-modpack/" class="post-entry__link">如何安装Minecraft整合包</a>
-                </div>
-            
-        
+
+
     </div>
-    
 
 
-        </main>
-    
 
+</main>
 
             <footer class="footer">
     
@@ -339,6 +424,69 @@
 
  
 
+
+    
+
+    
+    
+    
+
+    
+    
+    
+    <script>
+        function loadComment() {
+            let e, i;
+            (e = document.createElement("script")).src = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js',
+            document.body.appendChild(e);
+            e.onload = () => {
+                var gitalk = new Gitalk({
+                    clientID: 'ba0ef0e526c29b6fc28c',
+                    clientSecret: '88e479e8482f3702daaa2e08446081b012863f96',
+                    repo: 'blog',
+                    owner: 'SkeletonCold',
+                    admin: 'SkeletonCold',
+                    id: window.location.pathname,
+                    distractionFreeMode: false
+                });
+                gitalk.render('gitalk-container');
+            };
+            (i = document.createElement("link")).rel = "stylesheet",
+            i.href = 'https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css',
+            document.head.appendChild(i);
+        }
+    
+        var runningOnBrowser = typeof window !== "undefined";
+        var isBot = runningOnBrowser && !("onscroll" in window) || typeof navigator !== "undefined" && /(gle|ing|ro|msn)bot|crawl|spider|yand|duckgo/i.test(navigator.userAgent);
+        var supportsIntersectionObserver = runningOnBrowser && "IntersectionObserver" in window;
+    
+        setTimeout(function () {
+            if (!isBot && supportsIntersectionObserver) {
+                var comment_observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        loadComment();
+                        comment_observer.disconnect();
+                    }
+                }, { threshold: [0] });
+                comment_observer.observe(document.getElementById('comment'));
+            } else {
+                loadComment();
+            }
+        }, 1);
+    </script>
+
+    
+    
+
+    
+    
+    
+    
+    
+
+    
+    
+    
 
 
 
