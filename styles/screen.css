@@ -59,7 +59,7 @@ header h1 {
   text-shadow: 0 1px 6px rgba(0,0,0,0.5);
 }
 header h1 a {
-  color: #ca314d;
+  color: #e6e6fa;
 }
 header p {
   color: #fdf2e4;
@@ -89,7 +89,7 @@ header nav ul li:last-child:after {
   content: '';
 }
 header nav ul li a {
-  color: #ca314d;
+  color: #ddddf0;
 }
 header nav ul li a:hover {
   text-decoration: underline;
@@ -104,7 +104,7 @@ header nav .xnews-icon a {
   color: #444;
 }
 header nav .xnews-icon a:hover {
-  color: #ca314d;
+  color: #e6e6fa;
   transition: color 0.3s ease;
 }
 header .space {
