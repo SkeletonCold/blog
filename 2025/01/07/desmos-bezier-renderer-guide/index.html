@@ -1,0 +1,286 @@
+<!DOCTYPE html><html class="han-init" lang="zh-Hant"><head><link rel="icon" type="image/png" href="/blog/favicon-96x96.png" sizes="96x96" />
+<link rel="icon" type="image/svg+xml" href="/blog/favicon.svg" />
+<link rel="shortcut icon" href="/blog/favicon.ico" />
+<link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon.png" />
+<meta name="apple-mobile-web-app-title" content="汐星のBlog" />
+<link rel="manifest" href="/blog/site.webmanifest" /><meta name="author" content="汐星"><meta name="description" itemprop="description" content="项目地址:Desmos Bezier Renderer参考文章:Installation and Usage Guide for Desmos Bezier Renderer on Windows with WSL
+本篇文章使用VMware workstation部署虚拟机
+Demo 
+
+
+安装Ub"><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Desmos Bezier Renderer安装&amp;使用指南</title><link rel="stylesheet" type="text/css" href="/blog/font/fantasque_sans_mono/stylesheet.css"><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/webicons/2.0.0/webicons.min.css"><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/Han/3.3.0/han.min.css"><link rel="stylesheet" type="text/css" href="/blog/styles/screen.css"><link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/gruvbox-dark.min.css"><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/blog/css/prism-duotone-earth.css" type="text/css"><script src="/blog/js/prism.js"></script></head><body><header><a href="/blog/"><img class="logo" src="https://avatars.githubusercontent.com/u/72563159" alt="汐星の部落格" title="汐星の部落格"></a><h1><a href="/blog/" alt="汐星の部落格" title="汐星の部落格">汐星の部落格</a></h1><p></p><nav><ul><li><a href="/blog/" alt="首页" title="首页">首页</a></li><li><a href="/blog/pigeonhole" alt="归档" title="归档">归档</a></li><li><a href="/blog/links" alt="链接" title="链接">链接</a></li><li><a href="/blog/about" alt="关于" title="关于">关于</a></li></ul><div class="xnews-icon"><a target="_blank" href="/blog/atom.xml">&#xe621;</a><a target="_blank" href="https://github.com/SkeletonCold" style="position: relative; top: -2px;">&#xe735;</a></div></nav><div class="space"></div></header><main><article class="full"><h1>Desmos Bezier Renderer安装&amp;使用指南</h1><span class="post-meta">写于<time> 2025 年 01 月 07 日 22 时 35 分</time><br>更新于<time> 2025 年 01 月 09 日 00 时 26 分</time></span><div class="article-toc"><strong>大纲</strong><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Demo"><span class="toc-number">1.</span> <span class="toc-text">Demo</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Ubuntu"><span class="toc-number">2.</span> <span class="toc-text">安装Ubuntu</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E8%99%9A%E6%8B%9F%E6%9C%BA"><span class="toc-number">2.1.</span> <span class="toc-text">创建虚拟机</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.2.</span> <span class="toc-text">安装操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%85%8D%E7%BD%AE%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F"><span class="toc-number">2.3.</span> <span class="toc-text">配置操作系统</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%AE%89%E8%A3%85Desmos-Bezier-Renderer"><span class="toc-number">3.</span> <span class="toc-text">安装Desmos Bezier Renderer</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8SMB%E5%9C%A8%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%92%8CWindows%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6"><span class="toc-number">4.</span> <span class="toc-text">使用SMB在虚拟机和Windows主机之间传输文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E4%B8%BB%E6%9C%BA%E5%88%9B%E5%BB%BASMB%E5%85%B1%E4%BA%AB%E6%96%87%E4%BB%B6%E5%A4%B9"><span class="toc-number">4.1.</span> <span class="toc-text">在主机创建SMB共享文件夹</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8Ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E4%B8%8A%E8%BF%9E%E6%8E%A5%E5%88%B0SMB%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="toc-number">4.2.</span> <span class="toc-text">在Ubuntu虚拟机上连接到SMB服务器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E6%B8%B2%E6%9F%93%E7%B4%A0%E6%9D%90"><span class="toc-number">5.</span> <span class="toc-text">准备渲染素材</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%BC%A0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-number">5.1.</span> <span class="toc-text">单张图片文件处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E6%96%87%E4%BB%B6%E5%A4%84%E7%90%86"><span class="toc-number">5.2.</span> <span class="toc-text">视频文件处理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E8%A7%86%E9%A2%91%E7%B4%A0%E6%9D%90"><span class="toc-number">5.2.1.</span> <span class="toc-text">处理视频素材</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E8%A7%A3%E8%A7%86%E9%A2%91%E7%B4%A0%E6%9D%90"><span class="toc-number">5.2.2.</span> <span class="toc-text">分解视频素材</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Desmos-Bezier-Renderer%E6%B8%B2%E6%9F%93"><span class="toc-number">6.</span> <span class="toc-text">使用Desmos Bezier Renderer渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%87%8D%E5%90%AF%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%81%A2%E5%A4%8D%E8%BF%90%E8%A1%8C"><span class="toc-number">6.1.</span> <span class="toc-text">重启虚拟机恢复运行</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%84%E7%90%86%E6%B8%B2%E6%9F%93%E5%90%8E%E7%9A%84%E6%96%87%E4%BB%B6"><span class="toc-number">7.</span> <span class="toc-text">处理渲染后的文件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%BC%A0%E5%9B%BE%E7%89%87%E6%96%87%E4%BB%B6"><span class="toc-number">7.1.</span> <span class="toc-text">单张图片文件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A7%86%E9%A2%91%E6%96%87%E4%BB%B6"><span class="toc-number">7.2.</span> <span class="toc-text">视频文件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E6%88%90%E6%B8%B2%E6%9F%93%E6%96%87%E4%BB%B6"><span class="toc-number">7.2.1.</span> <span class="toc-text">合成渲染文件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%88%E6%88%90%E8%A7%86%E9%A2%91%E6%96%87%E4%BB%B6"><span class="toc-number">7.2.2.</span> <span class="toc-text">合成视频文件</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98"><span class="toc-number">8.</span> <span class="toc-text">常见问题</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%A0%E6%B3%95%E8%BF%9E%E6%8E%A5%E7%BD%91%E7%BB%9C"><span class="toc-number">8.1.</span> <span class="toc-text">无法连接网络</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9F%A5%E6%89%BEUbuntu%E4%B8%8A%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D"><span class="toc-number">8.2.</span> <span class="toc-text">查找Ubuntu上的用户名</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%B8%B2%E6%9F%93%E5%90%8E%E7%9A%84%E5%9B%BE%E5%83%8F%E5%A4%A7%E5%B0%8F"><span class="toc-number">8.3.</span> <span class="toc-text">自定义渲染后的图像大小</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%9A%90%E8%97%8F%E7%BD%91%E6%A0%BC"><span class="toc-number">8.4.</span> <span class="toc-text">隐藏网格</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%8A%A8%E5%90%8C%E6%84%8FEULA"><span class="toc-number">8.5.</span> <span class="toc-text">自动同意EULA</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E4%B8%AD%E6%96%AD"><span class="toc-number">8.6.</span> <span class="toc-text">渲染中断</span></a></li></ol></li></ol></div><p>项目地址:<a target="_blank" rel="noopener" href="https://github.com/kevinjycui/DesmosBezierRenderer">Desmos Bezier Renderer</a><br>参考文章:<a target="_blank" rel="noopener" href="https://gist.github.com/TheRoboDoc/0d9095bf799f1f368ec5e361d9be534f">Installation and Usage Guide for Desmos Bezier Renderer on Windows with WSL</a></p>
+<p>本篇文章使用VMware workstation部署虚拟机</p>
+<h1 id="Demo"><a href="#Demo" class="headerlink" title="Demo"></a>Demo</h1><iframe 
+src="https://skeletoncold.github.io/img/video/aris_demo.mp4" 
+scrolling="no" 
+border="0" 
+frameborder="no" 
+framespacing="0" 
+allowfullscreen="true" 
+height=360 
+width=640> 
+</iframe>
+
+<h1 id="安装Ubuntu"><a href="#安装Ubuntu" class="headerlink" title="安装Ubuntu"></a>安装Ubuntu</h1><h2 id="创建虚拟机"><a href="#创建虚拟机" class="headerlink" title="创建虚拟机"></a>创建虚拟机</h2><ul>
+<li>打开VMware workstation</li>
+<li>点击左上角<code>文件</code>，选择<code>新建虚拟机</code></li>
+<li>选择<code>自定义</code>，然后选择<code>Workstation 17.x</code>的硬件兼容性（我使用的是VMware Workstation 17.0.0 build-20800274，其他版本也应该适用）</li>
+<li>选择<code>稍后安装操作系统</code></li>
+<li>客户机系统选择<code>Linux</code>，版本选择<code>Ubuntu 64位</code></li>
+<li>选择一个空闲空间大于<code>20GB</code>的路径存储虚拟机文件</li>
+<li>为虚拟机分配合适的处理器核心数，不建议高于物理机核心数（脚本是单线程运行的，对核心线程数不敏感）</li>
+<li>为虚拟机分配<code>4G/4096MB</code>以上的内存（影响单次运行时可以渲染的图片数量，越高越好，我使用的是8G）</li>
+<li>选择<code>使用网络地址转换(NAT)</code>类型的网络连接</li>
+<li>选择<code>LSI Logic</code></li>
+<li>选择<code>SCSI</code></li>
+<li>选择<code>创建新的虚拟磁盘</code></li>
+<li>为虚拟机分配<code>20.0G</code>以上的磁盘空间，选择<code>将虚拟磁盘拆分成多个文件</code></li>
+<li>完成虚拟机创建</li>
+</ul>
+<h2 id="安装操作系统"><a href="#安装操作系统" class="headerlink" title="安装操作系统"></a>安装操作系统</h2><ul>
+<li>点击<code>编辑虚拟机设置</code></li>
+<li>选择<code>CD/DVD(SATA)</code></li>
+<li>在右侧选择<code>使用ISO映像文件</code>，选择<a target="_blank" rel="noopener" href="https://releases.ubuntu.com/22.04/ubuntu-22.04.5-desktop-amd64.iso">ubuntu-22.04.5-desktop-amd64.iso(点击此处下载文件)</a><br> 推荐使用Ubuntu22.04</li>
+<li>开启虚拟机</li>
+<li>按下回车键选择<code>Try or Install Ubuntu</code></li>
+<li>左侧语言列表下滑找到简体中文并点击右侧<code>安装Ubuntu</code></li>
+<li>选择<code>Chinese-Chinese</code>键盘布局</li>
+<li>选择<code>正常安装</code>，取消选择<code>安装Ubuntu时下载更新</code></li>
+<li>选择<code>清除整个磁盘并安装Ubuntu</code>，弹出的对话框选择继续</li>
+<li>选择<code>Shanghai</code>时区</li>
+<li><strong>填写并记住这些信息</strong>，这些信息在后续的操作中很重要，可以选择开启自动登录</li>
+<li>等待Ubuntu操作系统安装完成并重启系统</li>
+<li>点击上分<code>虚拟机</code>，点击<code>设置</code>，选择<code>CD/DVD(SATA)</code>，点击下方<code>移除</code></li>
+<li>回到虚拟机窗口，点击回车键</li>
+</ul>
+<h2 id="配置操作系统"><a href="#配置操作系统" class="headerlink" title="配置操作系统"></a>配置操作系统</h2><ul>
+<li><p>跳过添加账户</p>
+</li>
+<li><p>跳过Ubuntu PRO(Skip for now)</p>
+</li>
+<li><p>自行选择是否向Ubuntu发送数据</p>
+</li>
+<li><p>跳过隐私选项</p>
+</li>
+<li><p>完成安装引导</p>
+</li>
+<li><p>点击虚拟机下方vmware的黄色弹窗，选择<code>我已完成安装</code></p>
+</li>
+<li><p>左上角<code>Ubuntu 24.04.1 LTS升级可用</code>弹窗，选择不升级，中间的弹窗点击确定</p>
+</li>
+<li><p>左上角<code>软件更新器</code>，点击设置，将<code>更新</code>页面设置为<br> 订阅:仅安全更新<br> 自动检查更新:从不<br> 当有安全更新时:自动下载<br> 当有其他更新时:每两周显示一次<br> 有新版本时通知我:从不<br>点击关闭，在<code>可用软件的列表信息已过时</code>窗口，选择重新载入<br>左上角软件更新器弹窗，点击<code>稍后提醒</code></p>
+</li>
+<li><p>点击左下角显示所有应用程序</p>
+</li>
+<li><p>点击设置</p>
+</li>
+<li><p>在网络选项卡中，点击右侧网络代理，选择手动<br>自行填写网络代理地址，或查看这篇文章<a href="https://skeletoncold.github.io/blog/2025/01/08/clash-local-proxy/">通过Clash在局域网设备上配置代理</a></p>
+</li>
+<li><p>在左侧找到电源选项卡，将自动息屏设置为<code>从不</code></p>
+</li>
+</ul>
+<h1 id="安装Desmos-Bezier-Renderer"><a href="#安装Desmos-Bezier-Renderer" class="headerlink" title="安装Desmos Bezier Renderer"></a>安装Desmos Bezier Renderer</h1><ul>
+<li>右键桌面打开终端</li>
+<li>在终端执行以下命令更新APT的软件包存储库</li>
+</ul>
+<blockquote><pre class="line-numbers language-none"><code class="language-none">sudo apt update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>这里会要求你输入<a href="#%E5%AE%89%E8%A3%85%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F">安装操作系统</a>时填写的密码，终端不会显现输入的字符</p>
+</blockquote>
+<ul>
+<li>安装Desmos Bezier Renderer所依赖的组件</li>
+</ul>
+<blockquote><pre class="line-numbers language-none"><code class="language-none">sudo apt install git python3.10-dev python3-pip python3.10-venv build-essential libagg-dev libpotrace-dev pkg-config ffmpeg<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>输入Y，按下回车键确认</p>
+</blockquote>
+<ul>
+<li>下载Desmos Bezier Renderer</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">git clone https:&#x2F;&#x2F;github.com&#x2F;kevinjycui&#x2F;DesmosBezierRenderer.git<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>关闭终端窗口，在桌面右下角打开Desmos Bezier Renderer文件夹</li>
+<li>右键文件夹空白处打开一个新的终端</li>
+<li>创建python虚拟环境</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">python3 -m venv env<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>激活虚拟环境</li>
+</ul>
+<blockquote><pre class="line-numbers language-none"><code class="language-none">. env&#x2F;bin&#x2F;activate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>执行完成后，终端前面出现(env)代表执行成功</p>
+</blockquote>
+<ul>
+<li>安装python依赖</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">pip install wheel<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>安装其他依赖</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">pip install -r requirements.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>关闭终端窗口完成安装</li>
+</ul>
+<h1 id="使用SMB在虚拟机和Windows主机之间传输文件"><a href="#使用SMB在虚拟机和Windows主机之间传输文件" class="headerlink" title="使用SMB在虚拟机和Windows主机之间传输文件"></a>使用SMB在虚拟机和Windows主机之间传输文件</h1><h2 id="在主机创建SMB共享文件夹"><a href="#在主机创建SMB共享文件夹" class="headerlink" title="在主机创建SMB共享文件夹"></a>在主机创建SMB共享文件夹</h2><iframe 
+src="https://skeletoncold.github.io/img/picture/smb-share.jpg" 
+height=470 
+width=1019> 
+</iframe>
+
+<blockquote><p>请不要在不信任的网络环境下开启SMB共享，若需要，请限制可访问SMB共享文件夹的用户数量（&gt;2）</p>
+</blockquote>
+<ul>
+<li>右键文件夹打开属性，按照上图开启文件夹共享</li>
+<li>在Windows主机上打开文件资源管理器，右键左侧<code>此电脑</code>点击<code>管理</code>，打开计算机管理器</li>
+<li>在左侧依次打开<code>系统工具</code>-<code>本地用户和组</code>-<code>用户</code></li>
+<li>在右侧空白处右键选择<code>新用户</code></li>
+<li>在弹出的窗口内填写和Ubuntu虚拟机一致的用户名（<a href="#%E6%9F%A5%E6%89%BEUbuntu%E4%B8%8A%E7%9A%84%E7%94%A8%E6%88%B7%E5%90%8D">我忘记了用户名怎么办</a>）</li>
+<li>填写密码</li>
+<li>取消选择<code>用户下次登录时须更改密码</code></li>
+<li>选择<code>密码永不过期</code></li>
+</ul>
+<h2 id="在Ubuntu虚拟机上连接到SMB服务器"><a href="#在Ubuntu虚拟机上连接到SMB服务器" class="headerlink" title="在Ubuntu虚拟机上连接到SMB服务器"></a>在Ubuntu虚拟机上连接到SMB服务器</h2><ul>
+<li>在Windows主机上右键任务栏打开任务管理器，找到<code>性能</code>选项卡</li>
+<li>在性能选项卡找到以太网</li>
+<li>在右侧找到IPv4地址:<code>192.xxx.xx.x</code></li>
+<li>回到虚拟机，打开左侧<code>文件</code></li>
+<li>点击下方添加<code>其他位置</code></li>
+<li>输入服务器地址<code>smb://192.xxx.xx.x</code></li>
+<li>在弹出的身份认证选项卡内输入刚才在Windows上新添加的用户的用户名和密码</li>
+<li>底部选择<code>永远记住</code></li>
+<li>连接到SMB服务器后点击刚才在Windows上共享的文件夹（这一步是在Ubuntu虚拟机中操作）</li>
+<li>在弹出的窗口中选择<code>已注册用户</code>并再次填写用户名和密码</li>
+<li>底部选择<code>永远记住</code></li>
+<li>过程中可能会弹窗要求你输入Ubuntu用户的登录密码，输入即可</li>
+<li>至此，成功挂载SMB共享文件夹到Ubuntu虚拟机</li>
+<li>右键挂载的SMB文件夹（左侧栏的SMB文件夹，通常以IPv4地址开头）选择添加到书签，这样在重启后可以快速挂载SMB共享文件夹</li>
+</ul>
+<h1 id="准备渲染素材"><a href="#准备渲染素材" class="headerlink" title="准备渲染素材"></a>准备渲染素材</h1><h2 id="单张图片文件处理"><a href="#单张图片文件处理" class="headerlink" title="单张图片文件处理"></a>单张图片文件处理</h2><ul>
+<li>在Windows主机上复制图片到SMB共享文件夹目录下（必须是PNG文件）</li>
+<li>Ubuntu虚拟机重新打开SMB文件夹即可见到文件</li>
+<li>将文件重命名为<code>frame1.png</code></li>
+<li>复制图片文件到Desmos Bezier Renderer文件夹下的frames文件夹（注意提前清空这个文件夹的其他文件）</li>
+<li>按照<a href="#%E4%BD%BF%E7%94%A8Desmos-Bezier-Renderer%E6%B8%B2%E6%9F%93">教程</a>开始渲染</li>
+</ul>
+<h2 id="视频文件处理"><a href="#视频文件处理" class="headerlink" title="视频文件处理"></a>视频文件处理</h2><h3 id="处理视频素材"><a href="#处理视频素材" class="headerlink" title="处理视频素材"></a>处理视频素材</h3><ul>
+<li>打开Adobe Premiere</li>
+<li>新建项目并选择保存路径，<code>取消选择创建序列</code></li>
+<li>点击左上角<code>文件</code>-<code>新建</code>-<code>序列</code></li>
+<li>转到<code>设置</code>选项卡<br> 编辑模式:DSLR<br> 时基根据需求自行选择30.0或者60.0（若视频为30帧，请选择30.0）<br> 帧大小建议使用640x360或者854x480<br> 创建序列</li>
+<li>导入视频到项目</li>
+<li>将视频素材移动到序列轨道上，在弹出的警告窗口中选择<code>保持现有设置</code></li>
+<li>选中轨道上的素材</li>
+<li>在左侧打开效果控件</li>
+<li>左右拖动缩放后面的<code>100%</code>，在右侧预览窗口观察缩放的画面到合适的大小（铺满预览窗口）</li>
+<li>按下<code>C</code>键切换到剃刀工具</li>
+<li>点击右侧轨道任意位置进行裁切（按照个人需求进行裁切，例如你只需要20秒的素材进行渲染）</li>
+<li>按下<code>V</code>键切换到选择工具</li>
+<li>点击裁切后的素材右端，按下del键或者右键选择清除（目的是删除裁切后多余的画面）</li>
+<li>按下<code>Ctrl+M</code>切换到导出选项卡</li>
+<li>在顶部可以看到文件名和保存路径的设置，自行更改</li>
+<li>注意选中<code>视频</code>后面的开关</li>
+<li>导出视频素材</li>
+<li>回到编辑窗口按下<code>Ctrl+S</code>保存项目文件</li>
+</ul>
+<h3 id="分解视频素材"><a href="#分解视频素材" class="headerlink" title="分解视频素材"></a>分解视频素材</h3><ul>
+<li>复制导出的视频素材到SMB共享文件夹</li>
+<li>复制视频素材到Desmos Bezier Renderer文件夹下</li>
+<li>注意提前清空<code>frames</code>文件夹的其他文件（不要直接删除这个文件夹，点开文件夹按Ctrl+a全选，右键删除）</li>
+<li>右键空白处打开终端</li>
+<li>输入<code>ffmpeg -i </code>(注意有两个空格)</li>
+<li>拖动素材视频文件到终端窗口</li>
+<li>输入<code>-vf &quot;fps=视频帧数&quot; &quot;frames/frame%d.png&quot;</code>其中视频帧数与你在上一步设置的序列时基有关，他影响到最终输出的视频帧数</li>
+</ul>
+<blockquote><p>完整命令示例</p>
+<pre class="line-numbers language-none"><code class="language-none">ffmpeg -i &#39;example.mp4&#39; -vf &quot;fps&#x3D;30.0&quot; &quot;frames&#x2F;frame%d.png&quot;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></blockquote>
+<ul>
+<li>按照<a href="#%E4%BD%BF%E7%94%A8Desmos-Bezier-Renderer%E6%B8%B2%E6%9F%93">教程</a>开始渲染</li>
+</ul>
+<h1 id="使用Desmos-Bezier-Renderer渲染"><a href="#使用Desmos-Bezier-Renderer渲染" class="headerlink" title="使用Desmos Bezier Renderer渲染"></a>使用Desmos Bezier Renderer渲染</h1><ul>
+<li>打开Desmos Bezier Renderer文件夹</li>
+<li>激活虚拟环境</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">. env&#x2F;bin&#x2F;activate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<ul>
+<li>运行Desmos Bezier Renderer开始渲染</li>
+</ul>
+<blockquote><pre class="line-numbers language-none"><code class="language-none">python3 backend.py -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<p>后面加上<code>-d</code>会自动下载渲染后的图片到<code>下载</code>文件夹，注意提前清空<code>下载</code>文件夹<br>注意输入Y并按下回车同意EULA</p>
+</blockquote>
+<ul>
+<li>在打开的浏览器窗口左侧可以看到一些信息<br> F代表渲染帧<br> <code>513</code>代表一共有513帧画面<br> F&#x3D;<code>16</code>代表正在渲染第几帧<br> L代表这一帧画面计算的函数数量</li>
+</ul>
+<iframe 
+src="https://skeletoncold.github.io/img/picture/render.png" 
+height=206 
+width=412> 
+</iframe>
+
+<ul>
+<li>找到<code>f=0</code></li>
+<li>将<code>0</code>改为<code>1</code>（代表从第1帧开始渲染）</li>
+<li>按下上方<code>&lt;&lt;&lt;</code>箭头收起侧面板</li>
+<li>等待渲染完成（在终端查看输出的信息<code>GET /?frame=11</code>可以知道正在渲染第几帧）</li>
+<li>在终端按下<code>Ctrl+C</code>即可终止程序</li>
+</ul>
+<h2 id="重启虚拟机恢复运行"><a href="#重启虚拟机恢复运行" class="headerlink" title="重启虚拟机恢复运行"></a>重启虚拟机恢复运行</h2><p>部署完整套系统，下次运行只需要输入这两条命令即可</p>
+<pre class="line-numbers language-none"><code class="language-none">. env&#x2F;bin&#x2F;activate<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<pre class="line-numbers language-none"><code class="language-none">python3 backend.py -d<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h1 id="处理渲染后的文件"><a href="#处理渲染后的文件" class="headerlink" title="处理渲染后的文件"></a>处理渲染后的文件</h1><h2 id="单张图片文件"><a href="#单张图片文件" class="headerlink" title="单张图片文件"></a>单张图片文件</h2><p>若在渲染时启用了<code>-d</code>参数，你可以在<code>下载</code>文件夹找到渲染后的图片，将其复制到SMB共享文件夹即可在Windows主机上的SMB共享文件夹内找到</p>
+<h2 id="视频文件"><a href="#视频文件" class="headerlink" title="视频文件"></a>视频文件</h2><h3 id="合成渲染文件"><a href="#合成渲染文件" class="headerlink" title="合成渲染文件"></a>合成渲染文件</h3><p>确保在渲染时启用了<code>-d</code>参数，最终合成视频分辨率取决于你渲染时设定的分辨率</p>
+<ul>
+<li>打开<code>下载</code>文件夹</li>
+<li>右键空白处打开终端</li>
+<li>执行以下命令，注意修改<code>视频帧数</code>（30.0&#x2F;60.0）</li>
+</ul>
+<pre class="line-numbers language-none"><code class="language-none">ffmpeg -r 视频帧数 -f image2 -i frame-%05d.png output.mp4<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+<h3 id="合成视频文件"><a href="#合成视频文件" class="headerlink" title="合成视频文件"></a>合成视频文件</h3><ul>
+<li>复制合成后的渲染文件<code>output.mp4</code>到SMB共享文件夹</li>
+<li>在Windows主机上导入这个视频文件到Adobe Premiere项目中</li>
+<li>依次点击左上角<code>文件</code>-<code>新建</code>-<code>序列</code> </li>
+<li>转到设置选项卡<br> 编辑模式:DSLR<br> 时基请选择和之前一致的<br> 帧大小填写和渲染文件一致的（在导入渲染文件后，在左下角素材库右键选择属性，查看图像大小）<br> 创建序列</li>
+<li>将渲染文件拖到右侧序列轨道上</li>
+<li>打开之前处理视频素材时的序列（通常命名为序列01）</li>
+<li>右键轨道上的素材，选择<code>取消链接</code></li>
+<li>选择下面的音频部分，右键选择<code>复制</code></li>
+<li>回到刚刚新建的序列（通常命名为序列02）</li>
+<li>点击轨道，按下<code>Ctrl+V</code>粘贴<br> 注意对齐视频轨道，可以在选择工具模式下拖动轨道上分的时间轴，让他靠齐零位</li>
+<li>按下<code>Ctrl+M</code>设定导出路径，注意开启视频和音频</li>
+<li>导出视频</li>
+</ul>
+<h1 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h1><h2 id="无法连接网络"><a href="#无法连接网络" class="headerlink" title="无法连接网络"></a>无法连接网络</h2><p>配置网络代理或查看这篇文章<a href="https://skeletoncold.github.io/blog/2025/01/08/clash-local-proxy/">通过Clash在局域网设备上配置代理</a></p>
+<h2 id="查找Ubuntu上的用户名"><a href="#查找Ubuntu上的用户名" class="headerlink" title="查找Ubuntu上的用户名"></a>查找Ubuntu上的用户名</h2><p>任意位置打开终端，<code>@</code>字符前面的就是你的用户名<br>例如<code>blog-test@ubuntu-blog</code>blog-test就是你的用户名</p>
+<h2 id="自定义渲染后的图像大小"><a href="#自定义渲染后的图像大小" class="headerlink" title="自定义渲染后的图像大小"></a>自定义渲染后的图像大小</h2><p>在这条命令<code>python3 backend.py</code>后面加上<code>--size &lt;宽&gt;&lt;高&gt;</code><br>例如<code>python3 backend.py --size 1920x1080</code><br>如果渲染画面出现不正确的拉伸，请不要添加这条参数，并直接修改Ubuntu设置里的显示屏分辨率<br>在渲染时将浏览器窗口最大化，这样他渲染的画面就是你设置的显示屏分辨率</p>
+<p>若实在是要输出高分辨率，请修改Ubuntu设置的显示屏分辨率为<code>目标渲染分辨率</code>的整数倍，并在渲染时最大化浏览器窗口<br>例如需要输出3840x2160的画面，修改显示屏分辨率为1920x1080，并且最大化浏览器窗口，然后开始渲染</p>
+<h2 id="隐藏网格"><a href="#隐藏网格" class="headerlink" title="隐藏网格"></a>隐藏网格</h2><p>在这条命令<code>python3 backend.py</code>后面加上<code>-g</code> </p>
+<h2 id="自动同意EULA"><a href="#自动同意EULA" class="headerlink" title="自动同意EULA"></a>自动同意EULA</h2><p>在这条命令<code>python3 backend.py</code>后面加上<code>--yes</code> </p>
+<blockquote><p><code>python3 backend.py</code>后面可以同时添加多条参数，注意使用空格分开<br>命令参考</p>
+<pre class="line-numbers language-none"><code class="language-none">python3 backend.py -d -g --yes --size 2560x1440<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></blockquote>
+
+<h2 id="渲染中断"><a href="#渲染中断" class="headerlink" title="渲染中断"></a>渲染中断</h2><p>当需要渲染帧较多，而虚拟机配置的内存较少时，可能出现渲染中断的情况<br>具体表现为共600帧画面，实际渲染到450帧时浏览器出现崩溃，下载文件夹也中断到第450帧</p>
+<p>解决方案，在渲染器终端按下<code>Ctrl+C</code>终止渲染器运行<br>重启浏览器和渲染器，在浏览器以<code>F=451</code>继续进行渲染</p>
+<hr><footer><section class="copyright">&copy; 2020 - 2025<a href="/blog/">汐星</a></section><section class="intro">由<a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>驱动&middot;挂载<a target="_blank" rel="noopener" href="https://github.com/xadillax/hexo-xnew">X'new</a>主题</section></footer></article></main><script src="https://cdnjs.cloudflare.com/ajax/libs/Han/3.3.0/han.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-backstretch/2.0.4/jquery.backstretch.min.js"></script><script src="/blog/scripts/highlight.pack.js"></script><script>$(function() {
+    $("header").backstretch("https://skeletoncold.github.io/blog/images/106564455_p0.png");
+
+    $("figure.highlight").each(function(i, block) {
+        $(block).removeClass("highlight");
+        $(block).find("td.gutter").remove();
+        $("<pre><code class='__tobehl " + ($(block).attr("class") === "plain" ? "" : ("lang-" + $(block).attr("class"))) + "'></code></pre>").insertAfter($(block));
+        $(block).next().find("code").text((block.innerText || block.textContent));
+        $(block).remove();
+    });
+    $(".__tobehl").each(function(i, block) {
+        hljs.highlightBlock(block);
+    });
+
+    $("article.full img").each(function() {
+        if($(this).parent().is("article")) {
+            $(this).wrap("<p style='text-align: center;'></p>");
+        } else {
+            $(this).parent().css("text-align", "center");
+        }
+    });
+
+    if($(".article-toc").children().length < 2) {
+        $(".article-toc").css("display", "none");
+    }
+});</script></body></html>
